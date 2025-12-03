@@ -50,3 +50,12 @@ api_access = true
 # type = "single_line_text_field"
 # name = "Banner title"
 # description = "Enter a title for the banner"
+
+
+[extensions.settings]
+
+[[extensions.settings.fields]]
+key = "timer_seconds"
+type = "number_integer"
+name = "Timer Duration"
+description = "Time format 01:00"
