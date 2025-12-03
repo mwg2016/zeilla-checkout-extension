@@ -141,7 +141,7 @@ function Extension() {
           <s-stack gap="none" alignItems="start">
             {/* ✅ TITLE (Bold / Emphasis) */}
             {title && (
-              <s-text type="medium" type="emphasis">
+              <s-text type="emphasis">
                 {title}
               </s-text>
             )}
