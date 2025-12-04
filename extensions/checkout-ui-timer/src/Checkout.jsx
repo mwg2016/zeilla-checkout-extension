@@ -110,6 +110,8 @@ function Extension() {
   const { storage } = shopify;
 
   // ✅ Get time from Shopify setting like "01:00"
+  const startText = shopify.settings.value.timer_start_text || "Order reserved for the next";
+  const EndText = shopify.settings.value.timer_end_text || "YOUR ORDER RESERVATION ENDED";
   const rawTime = shopify.settings.value.timer_seconds || "10";
   const totalSeconds = parseTimeToSeconds(rawTime);
   const TIMER_DURATION = totalSeconds * 1000;
@@ -166,10 +168,10 @@ if (minutes > 0) {
   return (
     <>
       {!expired ? (
-        <s-banner heading={`Order reserved for the next ${displayTime}`} tone="success">
+        <s-banner heading={`${startText} ${displayTime}`} tone="success">
         </s-banner>
       ) : (
-        <s-banner heading="YOUR ORDER RESERVATION ENDED" tone="critical">
+        <s-banner heading={`${EndText}`} tone="critical">
         </s-banner>
       )}
     </>

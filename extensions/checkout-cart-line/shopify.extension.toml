@@ -6,10 +6,10 @@
 api_version = "2025-10"
 
 [[extensions]]
-name = "checkout-ui-timer"
-handle = "checkout-ui-timer"
+name = "checkout-cart-line"
+handle = "checkout-cart-line"
 type = "ui_extension"
-uid = "89609ead-10af-ea70-a323-640746298aaa06aac3f4"
+uid = "5ee52131-3087-7e28-f1f3-1ac6eed6000d28892d81"
 
 # Controls where in Shopify your extension will be injected,
 # and the file that contains your extension’s source code. Learn more:
@@ -17,7 +17,8 @@ uid = "89609ead-10af-ea70-a323-640746298aaa06aac3f4"
 
 [[extensions.targeting]]
 module = "./src/Checkout.jsx"
-target = "purchase.checkout.block.render"
+target = "purchase.checkout.cart-line-item.render-after"
+# target = "purchase.checkout.block.render"
 
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.
@@ -50,21 +51,3 @@ api_access = true
 # type = "single_line_text_field"
 # name = "Banner title"
 # description = "Enter a title for the banner"
-
-
-[extensions.settings]
-
-[[extensions.settings.fields]]
-key = "timer_start_text"
-type = "single_line_text_field"
-name = "Timer text"
-
-[[extensions.settings.fields]]
-key = "timer_end_text"
-type = "single_line_text_field"
-name = "Timer end text"
-
-[[extensions.settings.fields]]
-key = "timer_seconds"
-type = "number_integer"
-name = "Timer Duration"

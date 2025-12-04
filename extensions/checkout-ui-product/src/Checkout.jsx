@@ -1,18 +1,23 @@
 import "@shopify/ui-extensions/preact";
 import { render } from "preact";
-import { useEffect } from "preact/hooks";
+import { useEffect, useRef } from "preact/hooks";
 
-const PRODUCT_VARIANT_ID =
-  typeof shopify.settings.value.upsell_variant === "string"
-    ? shopify.settings.value.upsell_variant
-    : "gid://shopify/ProductVariant/51034078904602";
 
 export default async () => {
   render(<Extension />, document.body);
 };
 
 function Extension() {
-  // ✅ SAFE IMAGE URL
+
+  const checkboxref = useRef(null);
+  
+  
+  const PRODUCT_VARIANT_ID = `${shopify.settings.value.upsell_variant}`;
+  
+  if (!PRODUCT_VARIANT_ID) {
+    return null;
+  }
+
   const imageUrl =
     typeof shopify.settings.value.custom_image_url === "string"
       ? shopify.settings.value.custom_image_url
@@ -53,7 +58,7 @@ function Extension() {
         type: "addCartLine",
         merchandiseId: PRODUCT_VARIANT_ID,
         quantity: 1,
-        attributes: [{ key: "source", value: "free-gift-toggle" }],
+        attributes: [{ key: "_additional_prd", value: "true" }],
       });
     }
   }, []);
@@ -88,8 +93,10 @@ function Extension() {
   //   }
   // }
 
-  async function handleToggle(isChecked) {
+  async function handleToggle() {
     if (!PRODUCT_VARIANT_ID) return;
+
+    const isChecked = checkboxref.current?.checked
 
     const currentLine = shopify.lines.value.find(
       (line) => line.merchandise.id === PRODUCT_VARIANT_ID
@@ -100,7 +107,7 @@ function Extension() {
         type: "addCartLine",
         merchandiseId: PRODUCT_VARIANT_ID,
         quantity: 1,
-        attributes: [{ key: "source", value: "free-gift-toggle" }],
+        attributes: [{ key: "_additional_prd", value: "true" }],
       });
 
       if (result.type === "error") {
@@ -109,6 +116,7 @@ function Extension() {
     }
 
     if (!isChecked && currentLine) {
+      
       const result = await shopify.applyCartLinesChange({
         type: "removeCartLine",
         id: currentLine.id,
@@ -122,50 +130,37 @@ function Extension() {
   }
 
   return (
-    <s-box
-      background="subdued"
-      borderRadius="base"
-      borderWidth="base"
-      padding="base"
-    >
-      <s-grid gridTemplateColumns="1fr 4fr 1fr">
+    <s-box borderRadius="base" borderWidth="base" padding="base">
+      <s-grid gridTemplateColumns="56px 1fr" columnGap="base">
         <s-grid-item>
-          <s-box inlineSize="80%">
-            {imageUrl && (
-              <s-image sizes="small" src={imageUrl} alt="Product image" />
-            )}
+          <s-box>
+            {imageUrl && <s-image sizes="small" src={imageUrl} alt="Product image" />}
           </s-box>
         </s-grid-item>
 
         <s-grid-item>
+          <s-grid gridTemplateColumns="1fr auto">
+            <s-grid-item>
+              {title && <s-heading>{title}</s-heading>}
+            </s-grid-item>
+
+            <s-grid-item>
+              <s-stack gap="base" alignItems="end">
+                <s-checkbox
+                  ref={checkboxref}
+                  checked={!!shopify.lines.value.find((line) => line.merchandise.id === PRODUCT_VARIANT_ID)}
+                  onChange={handleToggle}
+                />
+              </s-stack>
+            </s-grid-item>
+          </s-grid>
+
           <s-stack gap="none" alignItems="start">
-            {/* ✅ TITLE (Bold / Emphasis) */}
-            {title && (
-              <s-text type="emphasis">
-                {title}
-              </s-text>
-            )}
+            {subtitle && <s-text type="small" color="subdued">{subtitle}</s-text>}
 
-            {/* ✅ SUBTITLE (Muted) */}
-            {subtitle && (
-              <s-text type="small" color="subdued">
-                {subtitle}
-              </s-text>
-            )}
-
-            {/* ✅ DESCRIPTION (Multi-line normal text) */}
-            {description && <s-text type="small">{description}</s-text>}
+            {description && <s-text type="small" color="subdued">{description}</s-text>}
           </s-stack>
-        </s-grid-item>
 
-        <s-grid-item>
-          <s-stack gap="base" alignItems="end">
-            <s-checkbox
-              checked={!!existingLine}
-              // label={existingLine ? "Added" : "Add"}
-              onChange={(isChecked) => handleToggle(isChecked)}
-            />
-          </s-stack>
         </s-grid-item>
       </s-grid>
     </s-box>
