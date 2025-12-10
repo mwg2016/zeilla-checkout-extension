@@ -1,0 +1,163 @@
+# Learn more about configuring your checkout UI extension:
+# https://shopify.dev/api/checkout-extensions/checkout/configuration
+
+# The version of APIs your extension will receive. Learn more:
+# https://shopify.dev/docs/api/usage/versioning
+api_version = "2025-07"
+
+[[extensions]]
+name = "checkout reveiw mobile"
+handle = "checkout-reveiw-mobile"
+
+uid = "40d0a78d-50a1-5139-4929-293801f53f20beed2dbf"
+
+type = "ui_extension"
+
+
+# Controls where in Shopify your extension will be injected,
+# and the file that contains your extension’s source code. Learn more:
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/extension-targets-overview
+
+[[extensions.targeting]]
+module = "./src/Checkout.jsx"
+target = "purchase.checkout.block.render"
+
+[[extensions.targeting]]
+module = "./src/Checkout.jsx"
+target = "purchase.checkout.actions.render-before"
+
+
+[extensions.capabilities]
+# Gives your extension access to directly query Shopify’s storefront API.
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#api-access
+api_access = true
+
+# Gives your extension access to make external network calls, using the
+# JavaScript `fetch()` API. Learn more:
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#network-access
+# network_access = true
+
+# Loads metafields on checkout resources, including the cart,
+# products, customers, and more. Learn more:
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#metafields
+
+# [[extensions.metafields]]
+# namespace = "my_namespace"
+# key = "my_key"
+# [[extensions.metafields]]
+# namespace = "my_namespace"
+# key = "my_other_key"
+
+# Defines settings that will be collected from merchants installing
+# your extension. Learn more:
+# https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#settings-definition
+
+# [extensions.settings]
+# [[extensions.settings.fields]]
+# key = "banner_title"
+# type = "single_line_text_field"
+# name = "Banner title"
+# description = "Enter a title for the banner"
+
+
+
+
+
+[extensions.settings]
+
+[[extensions.settings.fields]]
+key = "Main_img"
+type = "single_line_text_field"
+name = "Title image"
+
+[[extensions.settings.fields]]
+key = "Main_title"
+type = "single_line_text_field"
+name = "Title"
+
+[[extensions.settings.fields]]
+key = "star_img"
+type = "single_line_text_field"
+name = "Star image"
+
+[[extensions.settings.fields]]
+key = "bottom_text"
+type = "single_line_text_field"
+name = "Bottom text"
+
+
+
+[[extensions.settings.fields]]
+key = "review_title_1"
+type = "single_line_text_field"
+name = "review title 1"
+
+[[extensions.settings.fields]]
+key = "review_paragraph_1"
+type = "single_line_text_field"
+name = "review paragrph 1"
+
+[[extensions.settings.fields]]
+key = "review_bottom_text_1"
+type = "single_line_text_field"
+name = "Review bottom text 1"
+
+[[extensions.settings.fields]]
+key = "review_title_2"
+type = "single_line_text_field"
+name = "review title 2"
+
+[[extensions.settings.fields]]
+key = "review_paragraph_2"
+type = "single_line_text_field"
+name = "review paragrph 2"
+
+[[extensions.settings.fields]]
+key = "review_bottom_text_2"
+type = "single_line_text_field"
+name = "Review bottom text 2"
+
+[[extensions.settings.fields]]
+key = "review_title_3"
+type = "single_line_text_field"
+name = "review title 3"
+
+[[extensions.settings.fields]]
+key = "review_paragraph_3"
+type = "single_line_text_field"
+name = "review paragrph 3"
+
+[[extensions.settings.fields]]
+key = "review_bottom_text_3"
+type = "single_line_text_field"
+name = "Review bottom text 3"
+
+[[extensions.settings.fields]]
+key = "review_title_4"
+type = "single_line_text_field"
+name = "review title 4"
+
+[[extensions.settings.fields]]
+key = "review_paragraph_4"
+type = "single_line_text_field"
+name = "review paragrph 4"
+
+[[extensions.settings.fields]]
+key = "review_bottom_text_4"
+type = "single_line_text_field"
+name = "Review bottom text 4"
+
+[[extensions.settings.fields]]
+key = "review_title_5"
+type = "single_line_text_field"
+name = "review title 5"
+
+[[extensions.settings.fields]]
+key = "review_paragraph_5"
+type = "single_line_text_field"
+name = "review paragrph 5"
+
+[[extensions.settings.fields]]
+key = "review_bottom_text_5"
+type = "single_line_text_field"
+name = "Review bottom text 5"
